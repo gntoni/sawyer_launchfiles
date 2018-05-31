@@ -1,0 +1,11 @@
+<launch>
+    <!-- launch camera -->
+    <include file="$(find astra_launch)/launch/astra.launch"/>
+
+    <!-- robot-camera transform publisher -->
+    <node pkg="tf" type="static_transform_publisher" name="robot_camera_broadcaster" args="-0.0117784 -0.110042 0.192447 0.0876698947557 0.470833416133 0.00382403845971 base camera_link 100" />
+
+    <!-- launch rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find sawyer_launchfiles)/rviz_cfg/config.rviz"/>
+
+</launch>
