@@ -1,0 +1,17 @@
+<launch>
+    <!-- launch joint trajectory action server -->
+    <node pkg="intera_interface" type="joint_trajectory_action_server.py" name="joint_trajectory_action_server" output="screen"/>
+
+    <!-- launch moveit -->
+    <arg name="scene_file" default="$(find sawyer_launchfiles)/scenes/camera.scene"/> 
+    <node name = "moveit_publish_scene_from_text" pkg= "moveit_ros_planning" type = "moveit_publish_scene_from_text" args= "$(arg scene_file)"/>
+
+    <arg name="electric_gripper" default="true" />
+    <arg name="astra" default="true" />
+    <arg name="camera_link_pose" default="-0.0117784 -0.110042 0.192447 0.0876698947557 0.470833416133 0.00382403845971"/>
+    <include file="$(find sawyer_moveit_config)/launch/sawyer_moveit.launch">
+        <arg name="astra" value="$(arg astra)" />
+        <arg name="camera_link_pose" default="$(arg camera_link_pose)"/>
+        <arg name="electric_gripper" default="$(arg electric_gripper)"/>
+    </include>
+</launch>
