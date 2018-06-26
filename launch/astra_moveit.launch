@@ -2,8 +2,11 @@
     <!-- launch joint trajectory action server -->
     <node pkg="intera_interface" type="joint_trajectory_action_server.py" name="joint_trajectory_action_server" output="screen"/>
 
+    <!-- launch cloud forwarding -->
+    <include file="$(find sawyer_tool_grasping)/launch/cloud_forwarding.launch"/>
+
     <!-- launch moveit -->
-    <arg name="scene_file" default="$(find sawyer_launchfiles)/scenes/camera.scene"/> 
+    <arg name="scene_file" default="$(find sawyer_launchfiles)/scenes/cam_wall.scene"/> 
     <node name = "moveit_publish_scene_from_text" pkg= "moveit_ros_planning" type = "moveit_publish_scene_from_text" args= "$(arg scene_file)"/>
 
     <arg name="electric_gripper" default="true" />
