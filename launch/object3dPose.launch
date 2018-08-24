@@ -14,4 +14,19 @@
         <arg name="camera_link_pose" default="$(arg camera_link_pose)"/>
         <arg name="electric_gripper" default="$(arg electric_gripper)"/>
     </include>
+
+    <!-- launch YoLo -->
+    <include file="$(find darknet_ros)/launch/yellow_tool_moveit.launch"/>
+
+    <!-- launch 3dPose recognition -->
+    <include file="$(find object_3dpose)/launch/object_3dpose.launch">
+        <arg name="image_topic" value="/move_group/camera/rgb/image_rect_color"/>
+        <arg name="cloud_topic" value="/move_group/camera/depth_registered/points"/>
+        <!-- iterative -->
+        <arg name="iterative" value="true"/>
+        <arg name="pose_cnn_param_file" value="$(find object_3dpose)/resources/models/iterative_train_wgts.pth" />
+    </include>
+
+    <!-- launch PointCloud Forwarding -->
+    <include file="$(find sawyer_tool_grasping)/launch/cloud_forwarding.launch"/>
 </launch>
